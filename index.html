@@ -4,15 +4,31 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<title>Pokedex</title>
 </head>
 <body>
-		<input type="text" value="" id="pokemoninput">
-		<button type="button">check pokemon</button>
-		<ol class="pokedex">
-			
-		</ol>
+		<nav class="find-pokemon">
+			<div class="text-field">
+				<input type="text" value="" id="pokemoninput" placeholder="Search for ID or Name" required>
+				<button type="button"><i class="fas fa-search"></i></button>
+			</div>
+		</nav>
+		<div class="pokemon-card">
+			<div class="pokemon-card-title">
+				<div class="pokemon-name_type">
+					<span class="pokemon-name"></span>
+					<span class="pokemon-type"></span>
+				</div>	
+				<span class="pokemon-id"></span>
+			</div>
+			<div class="pokemon-image"></div>
+			<div class="pokemon-card-info">
+				<h2 class="pokemon-card-info-title">Stats</h2>
+				<span class="pokemon-card-info-stats"></span>
+			</div>
+		</div>
 	</div>
 
 	<script src="script.js" type="text/javascript" charset="utf-8" async defer></script>

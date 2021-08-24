@@ -1,0 +1,247 @@
+/*
+# Creator: Arreaum
+# GitHub: https://github.com/arriaoedu123/
+# Creation date: 10/08/2021
+# Version: 1.0
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* { /* general preset */
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+	color: #000;
+}
+
+body { /* giving body a background */
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	background: #d1dae3;
+}
+
+.find-pokemon {
+	width: 50%;
+	display: flex;
+}
+
+.text-field {
+	width: 100%;
+	position: relative;
+	height: 45px;
+	margin: 10px;
+}
+
+.find-pokemon .text-field input { /* giving url field input a basic style */
+	width: 100%;
+	height: 100%;
+	border: none;
+	outline: none;
+	background: #f1f1f7;
+	font-size: 14px;
+	font-family: 'Noto Sans', sans-serif;
+	padding: 0 20px;
+}
+
+.find-pokemon .text-field button {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	border: none;
+	outline: none;
+	width: 50px;
+	height: 100%;
+	z-index: 1;
+	background: #e50914;
+	color: #fff;
+	text-transform: uppercase;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+.find-pokemon .text-field button i {
+	color: #fff;
+	font-size: 18px;
+}
+
+.wave { /* ripple effect wave */
+	--top: 0;
+	--left: 0;
+	--scale: 0;
+	--opacity: 0;
+	pointer-events: none;
+	background: transparent;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	will-change: transform;
+	transform: translateX(var(--left)) translateY(var(--top));
+}
+
+.wave:after { /* ripple effect wave transition */
+	content: "";
+	display: block;
+	border-radius: 50%;
+	width: 3px;
+	height: 3px;
+	background: rgba(255, 255, 255, .4);
+	will-change: transform;
+	transform: scale(var(--scale));
+	opacity: var(--opacity);
+	transition: transform .5s, opacity .3s;
+}
+
+.pokemon-card {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-top: 50px;
+	margin-bottom: 15px;
+	border-radius: 25px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.pokemon-card-title {
+	width: 100%;
+	height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 15px 15px 0 15px;
+}
+
+.pokemon-name_type {
+	width: 80%;
+	display: flex;
+	flex-direction: column;
+}
+
+.pokemon-name,
+.pokemon-type,
+.pokemon-id {
+	color: #000;
+	font-size: 22px;
+	font-weight: 600;
+}
+
+.pokemon-name {
+	width: 100%;
+	text-transform: capitalize;
+}
+
+.pokemon-type {
+	margin: 15px 0;
+	width: 100%;
+}
+
+.pokemon-id {
+	width: 20%;
+	height: 100%;
+	text-align: right;
+}
+
+.pokemon-image {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	z-index: 1;
+}
+
+.pokemon-type .type1,
+.pokemon-type .type2,
+.pokemon-type .type3 {
+	text-transform: capitalize;
+	padding: 5px 15px;
+	border-radius: 5px;
+}
+
+.pokemon-card-info {
+	width: 100%;
+	background: #fff;
+	margin-top: -70px;
+	padding: 15px;
+	border-radius: 25px;
+}
+
+.pokemon-card-info-title {
+	margin-top: 50px;
+	margin-bottom: 20px;
+	text-align: center;
+	font-size: 22px;
+}
+
+.pokemon-card-info-stats {
+	text-transform: capitalize;
+	display: flex;
+}
+
+.pokemon-stats {
+	width: 35%;
+	text-align: right;
+	list-style: none;
+	word-spacing: 15px;
+	font-size: 20px;
+}
+
+.pokemon-info {
+	list-style: none;
+	font-size: 20px;
+	width: 65%;
+}
+
+.info-name {
+	width: 100%;
+}
+
+.info-abilities,
+.info-extras {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.info-stats {
+	margin-top: 10px;
+	width: 100%;
+}
+
+.info-abilities .info-stats1,
+.info-abilities .info-stats2 {
+	background: #d1dae3;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.info-extras {
+	margin-top: 12px;
+	display: flex;
+	align-items: center;
+}
+
+.extra-stats {
+	margin-top: 8px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.extra-info1,
+.extra-info2 {
+	font-size: 14px;
+	word-spacing: 15px;
+}
+
+.extra-info1 label,
+.extra-info2 label {
+	font-size: 20px;
+	text-transform: lowercase;
+	word-spacing: 0px;
+	text-align: right;
+}
