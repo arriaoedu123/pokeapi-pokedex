@@ -44,6 +44,7 @@ const main_type = Object.keys(colors);
 const main_type_label = Object.keys(typeColors);
 
 function fetchPokemon(pokeId) {
+	console.log(pokeId);
 	const url = `https://pokeapi.co/api/v2/pokemon/${pokeId}`;
 	fetch(url).then((res) => {
 		return res.json();
@@ -63,6 +64,7 @@ function fetchPokemon(pokeId) {
 			stats_name: data.stats.map(statsName => statsName.stat.name.replace("ecial-", ".")),
 			stats: data.stats.map(stats => stats.base_stat)
 		};
+		console.log(pokemon.id);
 		console.log(pokemon.height, pokemon.weight);
 		displayPokemon(pokemon, pokeId);
 	});/*.catch((data) => {
@@ -122,7 +124,7 @@ function displayPokemon(pokemon, pokeId) {
 	
 	document.querySelector(".pokemon-name").innerHTML = `${pokemon.name}`;
 	document.querySelector(".pokemon-id").innerHTML = `#${pokemon.id.toString().padStart(3, "0")}`;
-	document.querySelector(".pokemon-image").innerHTML = `<img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${pokeId.toString().padStart(3, "0")}.png"/>`;
+	document.querySelector(".pokemon-image").innerHTML = `<img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${pokemon.id.toString().padStart(3, "0")}.png"/>`;
 	document.querySelector(".pokemon-card").style.background = color;
 	document.querySelector(".pokemon-card-info-stats").innerHTML = `
 					<ol class="pokemon-stats">
