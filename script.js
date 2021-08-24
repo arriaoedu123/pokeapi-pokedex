@@ -40,11 +40,13 @@ const typeColors = {
 	eletric: "#eed535"
 };
 
+//const strongAgainst = []
+//const weakAgainst
+
 const main_type = Object.keys(colors); 
 const main_type_label = Object.keys(typeColors);
 
 function fetchPokemon(pokeId) {
-	console.log(pokeId);
 	const url = `https://pokeapi.co/api/v2/pokemon/${pokeId}`;
 	fetch(url).then((res) => {
 		return res.json();
@@ -64,8 +66,6 @@ function fetchPokemon(pokeId) {
 			stats_name: data.stats.map(statsName => statsName.stat.name.replace("ecial-", ".")),
 			stats: data.stats.map(stats => stats.base_stat)
 		};
-		console.log(pokemon.id);
-		console.log(pokemon.height, pokemon.weight);
 		displayPokemon(pokemon, pokeId);
 	});/*.catch((data) => {
 		alert("this pokemon does not exists");
@@ -77,55 +77,42 @@ function displayPokemon(pokemon, pokeId) {
 	const type = main_type.find(type => pokemon.type.indexOf(type) > -1);
 	const color = colors[type];
 
+	const typeColors_button = main_type_label.find(typeButton => pokemon.type[0].indexOf(typeButton) > -1);
+	const colorCard_button = typeColors[typeColors_button];
+
+	document.querySelector(".text-field button").style.background = color;
+	document.querySelector(".text-field button i").style.color = colorCard_button;
+	document.querySelector(".pokemon-card").style.background = color;
+
 	if (pokemon.type_length == 1) {
-		document.querySelector(".pokemon-type").innerHTML = `<label class="type1">${pokemon.type[0]}</label>`;
-
-		const type_colors1 = main_type_label.find(typeLabel => pokemon.type[0].indexOf(typeLabel) > -1);
-		const colorCard1 = typeColors[type_colors1];
-
-		document.querySelector(".type1").style.background = colorCard1;
-
+		document.querySelector(".pokemon-type").innerHTML = `<label class="type0">${pokemon.type[0]}</label>`;
 	} else
 	if (pokemon.type_length == 2) {
 		document.querySelector(".pokemon-type").innerHTML = `
-		<label class="type1">${pokemon.type[0]}</label>
-		<label class="type2">${pokemon.type[1]}</label>
+		<label class="type0">${pokemon.type[0]}</label>
+		<label class="type1">${pokemon.type[1]}</label>
 		`;
-
-		const type_colors1 = main_type_label.find(typeLabel => pokemon.type[0].indexOf(typeLabel) > -1);
-		const colorCard1 = typeColors[type_colors1];
-
-		const type_colors2 = main_type_label.find(typeLabel => pokemon.type[1].indexOf(typeLabel) > -1);
-		const colorCard2 = typeColors[type_colors2];
-
-		document.querySelector(".type1").style.background = colorCard1;
-		document.querySelector(".type2").style.background = colorCard2;
 	} else 
 	if (pokemon.type_length == 3) {
 		document.querySelector(".pokemon-type") = `
-		<label class="type1">${pokemon.type[0]}</label>
-		<label class="type2">${pokemon.type[1]}</label>
-		<label class="type3">${pokemon.type[2]}</label>
+		<label class="type0">${pokemon.type[0]}</label>
+		<label class="type1">${pokemon.type[1]}</label>
+		<label class="type2">${pokemon.type[2]}</label>
 		`;
-
-		const type_colors1 = main_type_label.find(typeLabel => pokemon.type[0].indexOf(typeLabel) > -1);
-		const colorCard1 = typeColors[type_colors1];
-
-		const type_colors2 = main_type_label.find(typeLabel => pokemon.type[1].indexOf(typeLabel) > -1);
-		const colorCard2 = typeColors[type_colors2];
-
-		const type_colors3 = main_type_label.find(typeLabel => pokemon.type[2].indexOf(typeLabel) > -1);
-		const colorCard3 = typeColors[type_colors3];
-
-		document.querySelector(".type1").style.background = colorCard1;
-		document.querySelector(".type2").style.background = colorCard2;
-		document.querySelector(".type3").style.background = colorCard3;
 	}
 	
 	document.querySelector(".pokemon-name").innerHTML = `${pokemon.name}`;
 	document.querySelector(".pokemon-id").innerHTML = `#${pokemon.id.toString().padStart(3, "0")}`;
+
+	for (let i = 0; i <= (pokemon.type_length - 1); i++) {
+		const type_colors = main_type_label.find(typeLabel => pokemon.type[i].indexOf(typeLabel) > -1);
+		const colorCard = typeColors[type_colors];
+
+		document.querySelector(`.type${i}`).style.background = colorCard;
+	}
+
 	document.querySelector(".pokemon-image").innerHTML = `<img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${pokemon.id.toString().padStart(3, "0")}.png"/>`;
-	document.querySelector(".pokemon-card").style.background = color;
+
 	document.querySelector(".pokemon-card-info-stats").innerHTML = `
 					<ol class="pokemon-stats">
 						<li class="status-hp">
@@ -141,11 +128,11 @@ function displayPokemon(pokemon, pokeId) {
 							<label class="status-stats">${pokemon.stats[2]}</label>
 						</li>
 						<li class="status-sp-attack">
-							<label class="status-name">${pokemon.stats_name[3]}:</label>
+							<label class="status-name">${pokemon.stats_name[3].replace(".a", ".A")}:</label>
 							<label class="status-stats">${pokemon.stats[3]}</label>
 						</li>
 						<li class="status-sp-defense">
-							<label class="status-name">${pokemon.stats_name[4]}:</label>
+							<label class="status-name">${pokemon.stats_name[4].replace(".d", ".D")}:</label>
 							<label class="status-stats">${pokemon.stats[4]}</label>
 						</li>
 						<li class="status-speed">
@@ -210,7 +197,6 @@ document.querySelector("button").addEventListener("click", () => {
 
 		rippleEffect();
 		fetchPokemon(getId);
-		console.log(getId);
 	}
 });
 
