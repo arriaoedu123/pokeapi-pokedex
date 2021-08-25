@@ -114,7 +114,7 @@ function displayPokemon(pokemon, pokeId) {
 
 	document.querySelector(".pokemon-image").innerHTML = `<img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${pokemon.id.toString().padStart(3, "0")}.png"/>`;
 
-	/*document.querySelector(".pokemon-card-info-stats").innerHTML = `
+	document.querySelector(".pokemon-card-info-stats").innerHTML = `
 					<ol class="pokemon-stats">
 						<li class="status-hp">
 							<label class="status-name">${pokemon.stats_name[0]}:</label>
@@ -141,6 +141,14 @@ function displayPokemon(pokemon, pokeId) {
 							<label class="status-stats">${pokemon.stats[5]}</label>
 						</li>
 					</ol>
+					<ol class="status-bar">
+						<div class="status-hp-bar"></div>
+						<div class="status-attack-bar"></div>
+						<div class="status-defense-bar"></div>
+						<div class="status-sp-attack-bar"></div>
+						<div class="status-sp-defense-bar"></div>
+						<div class="status-speed-bar"></div>
+					</ol>
 					<ol class="pokemon-info">
 						<li class="info-abilities">
 							<label class="info-name">Abilities</label>
@@ -148,6 +156,8 @@ function displayPokemon(pokemon, pokeId) {
 								
 							</span>
 						</li>
+					</ol>
+					<ol class="pokemon-extras">
 						<li class="info-extras">
 							<label class="extra-name">Info</label>
 							<span class="extra-stats">
@@ -156,7 +166,15 @@ function displayPokemon(pokemon, pokeId) {
 							</span>
 						</li>
 					</ol>
-	`;*/
+	`;
+
+	document.querySelector(".status-hp-bar").style.width = `${pokemon.stats[0]}px`;
+	document.querySelector(".status-attack-bar").style.width =`${pokemon.stats[1]}px` ;
+	document.querySelector(".status-defense-bar").style.width = `${pokemon.stats[2]}px`;
+	document.querySelector(".status-sp-attack-bar").style.width = `${pokemon.stats[3]}px`;
+	document.querySelector(".status-sp-defense-bar").style.width = `${pokemon.stats[4]}px`;
+	document.querySelector(".status-speed-bar").style.width = `${pokemon.stats[5]}px`;
+
 	if (pokemon.abilities_length == 1) {
 		document.querySelector(".info-stats").innerHTML = `
 									<label class="info-stats1">${pokemon.abilities[0]}</label>					

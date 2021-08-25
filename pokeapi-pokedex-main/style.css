@@ -102,10 +102,11 @@ body { /* giving body a background */
 }
 
 .pokemon-card-title {
-	width: 100%;
 	display: grid;
-	grid-auto-rows: minmax(50px, auto);
 	padding: 15px 15px 0 15px;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	gap: 15px 0;
 }
 
 .pokemon-name {
@@ -166,7 +167,8 @@ body { /* giving body a background */
 .pokemon-card-info-stats {
 	text-transform: capitalize;
 	display: grid;
-	grid-template-columns: 2fr 2fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr 0.5fr 0.5fr 0.5fr; 
 }
 
 .pokemon-stats {
@@ -177,9 +179,11 @@ body { /* giving body a background */
 }
 
 .status-bar {
-	font-size: 20px;
-	text-align: left;
-	padding-left: 25px;
+	padding-left: 20px;
+	display: grid;
+	grid-column: 2/4;
+	grid-template-columns: repeat(6, 1fr);
+	align-items: center;
 }
 
 .status-hp-bar,
@@ -191,32 +195,8 @@ body { /* giving body a background */
 .status-speed-bar {
 	width: 100px;
 	height: 5px;
-	background: red;
-	position: relative;
-}
-
-.status-hp-bar {
-	top: 10px;
-}
-
-.status-attack-bar {
-	top: 36px;
-}
-
-.status-defense-bar {
-	top: 61px;
-}
-
-.status-sp-attack-bar {
-	top: 86px;
-}
-
-.status-sp-defense-bar {
-	top: 111px;
-}
-
-.status-speed-bar {
-	top: 136px;
+	background: #00bfff;
+	grid-column: 1/4;
 }
 
 .pokemon-info {
@@ -238,13 +218,6 @@ body { /* giving body a background */
 .info-name {
 	width: 100%;
 }
-
-/*.info-abilities,
-.info-extras {
-	text-align: center;
-	display: flex;
-	flex-direction: column;
-}*/
 
 .info-stats {
 	margin-top: 10px;
@@ -288,17 +261,32 @@ body { /* giving body a background */
 	word-spacing: 15px;
 }
 
+.extra-name {
+	font-size: 20px;
+}
+
 .extra-info1 label,
 .extra-info2 label,
 .extra-info3 label {
 	font-size: 20px;
 	text-transform: lowercase;
 	word-spacing: 0px;
-	text-align: right;
 }
 
 .pokemon-extras {
 	grid-column: 3/4;
+	text-align: center;
+	list-style: none;
+}
+
+.pokemon-weakness {
+	grid-column: 1/4;
+}
+
+.info-weakness {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 @media only screen and (max-width: 800px) {
