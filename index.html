@@ -3,30 +3,45 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<title>Pokedex</title>
 </head>
 <body>
-		<div class="text-field">
-			<input type="text" value="" id="pokemoninput" placeholder="Search for ID or Name" required>
-			<button type="button"><i class="fas fa-search"></i></button>
-		</div>	
-		<div class="pokemon-card">
-			<div class="pokemon-card-title">
-				<span class="pokemon-name"></span>
-				<span class="pokemon-id"></span>
-				<span class="pokemon-type"></span>			
-			</div>
-			<div class="pokemon-image"></div>
-			<div class="pokemon-card-info">
-				<h2 class="pokemon-card-info-title">Stats</h2>
-				<span class="pokemon-card-info-stats"></span>
-			</div>
+	<form class="get-pokemon">
+		<input type="text" class="get-pokemon-input" placeholder="Search for ID or Name">
+		<button type="button" onclick="searchPokemon()" id="get-pokemon-button"><i id="get-pokemon-icon" class="fas fa-search"></i></button>
+	</form>
+	<div class="container">
+		<!-- -->
+		<div class="title-container">
+  			<div class="data-poke-name"></div>
+  			<div class="data-poke-id"></div>
+  			<div class="data-poke-types"></div>
 		</div>
+		<!-- -->
+  		<div class="img-container">
+  			<img class="poke-image" src=""/>
+  		</div>
+  		<!-- -->
+  		<div class="stats-container">
+  			<label class="stats-title">Stats</label>
+  			<div class="data-poke-stats"></div>
+  			<div class="data-poke-bar"></div>
+  			<label class="abilities-title">Abilities</label>
+  			<div class="data-poke-abilities"></div>
+  			<label class="strong-title">Strong agains</label>
+  			<div class="data-poke-strong"></div>
+  			<label class="weak-title">Weak against</label>
+  			<div class="data-poke-weak"></div>
+  			<label class="info-title">Info</label>
+  			<div class="data-poke-info"></div>
+		</div>
+		<!-- -->
 	</div>
 
-	<script src="script.js" type="text/javascript" charset="utf-8" async defer></script>
+
+	<script src="script.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
