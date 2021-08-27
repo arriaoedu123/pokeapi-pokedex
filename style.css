@@ -113,16 +113,25 @@ body { /* giving body a background */
   border-radius: 25px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   transition: background 0.5s ease-in-out;
+  -webkit-user-select: none:
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .data-poke-name { /* pokemon name */
   grid-column: 1/3;
   text-transform: capitalize;
+  -webkit-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
 }
 
 .data-poke-id { /* pokemon id */
   grid-column: 3/4;
   text-align: right;
+  -webkit-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
 }
 
 .data-poke-types { /* pokemon types */
@@ -210,6 +219,9 @@ body { /* giving body a background */
 .data-poke-abilities label { /* all pokemon abilities cards */
   background: #ccc;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  -webkit-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
 }
 
 .data-poke-stats { /* pokemon stats */
