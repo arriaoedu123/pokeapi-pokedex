@@ -1,24 +1,32 @@
-const pokeCard = document.querySelector(".container");
-const pokeName = document.querySelector(".data-poke-name");
-const pokeIdNumb = document.querySelector(".data-poke-id");
-const pokeTypes = document.querySelector(".data-poke-types");
-const imgContainer = document.querySelector(".img-container");
-const pokeImg = document.querySelector(".poke-image");
-const pokeStats = document.querySelector(".data-poke-stats");
-const pokeAbilities = document.querySelector(".data-poke-abilities");
-const pokeStrong = document.querySelector(".data-poke-strong");
-const pokeWeak = document.querySelector(".data-poke-weak");
-const pokeInfo = document.querySelector(".data-poke-info");
-const pokeButton = document.querySelector("#get-pokemon-button");
-const pokeIcon = document.querySelector("#get-pokemon-button i");
-const pokeExtra = document.querySelector(".data-poke-extra");
-const pokePrev = document.querySelector(".poke-prev");
-const pokeNext = document.querySelector(".poke-next");
+/*
+# Creator: Arreaum
+# GitHub: https://github.com/arriaoedu123/
+# Creation date: 21/08/2021
+# Update date: 27/08/2021
+# Version: 1.6
+*/
 
-var pokeId = 1;
-var pokeId2 = 1;
+const pokeCard = document.querySelector(".container")
+const pokeName = document.querySelector(".data-poke-name")
+const pokeIdNumb = document.querySelector(".data-poke-id")
+const pokeTypes = document.querySelector(".data-poke-types")
+const imgContainer = document.querySelector(".img-container")
+const pokeImg = document.querySelector(".poke-image")
+const pokeStats = document.querySelector(".data-poke-stats")
+const pokeAbilities = document.querySelector(".data-poke-abilities")
+const pokeStrong = document.querySelector(".data-poke-strong")
+const pokeWeak = document.querySelector(".data-poke-weak")
+const pokeInfo = document.querySelector(".data-poke-info")
+const pokeButton = document.querySelector(".get-pokemon-button")
+const pokeIcon = document.querySelector(".get-pokemon-button i")
+const pokeExtra = document.querySelector(".data-poke-extra")
+const pokePrev = document.querySelector(".poke-prev")
+const pokeNext = document.querySelector(".poke-next")
 
-const colors = {
+var pokeId = 1
+var pokeId2 = 1
+
+const colors = { //all colors for pokemon container background
     fire: "#fddfdf",
     grass: "#defde0",
     electric: "#fcf7de",
@@ -37,9 +45,9 @@ const colors = {
     steel: "#D3D3D3",
     ghost: "#9370DB",
     dark: "#808080"
-};
+}
 
-const typeColors = {
+const typeColors = { //all colors for pokemon types cards background
     fire: "#fd7d24",
     poison: "#b97fc9",
     grass: "#9bcc50",
@@ -59,19 +67,14 @@ const typeColors = {
     normal: "#a4acaf",
     water: "#4592c4",
     electric: "#eed535"
-};
+}
 
-getUrl1(pokeId);
-
-function getUrl1(pokeId) {
-    const url = `https://pokeapi.co/api/v2/pokemon/${pokeId}`;
+//fetching the url that contains pokemon information
+const getUrl1 = pokeId => {
+    const url = `https://pokeapi.co/api/v2/pokemon/${pokeId}`
     fetch(url).then((res) => {
-        return res.json();
+        return res.json()
     }).then((data1) => {
-        const idType = {
-            id: data1.id,
-            type: data1.types.map(el => el.type.name)
-        };
         const pokemon = {
             name: data1.name,
             id: data1.id,
@@ -81,163 +84,183 @@ function getUrl1(pokeId) {
             type: data1.types.map(typeInfo => typeInfo.type.name),
             stats_name: data1.stats.map(statsName => statsName.stat.name.replace("ecial-", ".")),
             stats: data1.stats.map(stats => stats.base_stat),
-        };
-        pokeId2 = pokemon.id;
-        checkArrows();
-        getUrl2(pokemon.type[0], pokemon);
-    });
-};
+        }
+        pokeId2 = pokemon.id
+        checkArrows()
+        getUrl2(pokemon.type[0], pokemon)
+    })
+}
 
-function getUrl2(typeName, pokemon) {
-    const url = `https://pokeapi.co/api/v2/type/${typeName}`;
+getUrl1(pokeId) //starting with bulbasaur
+
+//fetching the url that contains pokemon strong against and weak against information
+const getUrl2 = (typeName, pokemon) => { 
+    const url = `https://pokeapi.co/api/v2/type/${typeName}`
     fetch(url).then((res) => {
-        return res.json();
+        return res.json()
     }).then((data2) => {
         const damage = {
-            weakness: data2.damage_relations.double_damage_from.map(el => el.name),
-            strong: data2.damage_relations.double_damage_to.map(el => el.name),
+            weakness: data2.damage_relations.double_damage_from.map(weak => weak.name),
+            strong: data2.damage_relations.double_damage_to.map(strong => strong.name),
         }
-        renderPokemon(pokemon, damage);
+        renderPokemon(pokemon, damage)
     });
 };
 
-function searchPokemon(event) {
-    event.preventDefault();
+//search the pokemon entered by user
+document.querySelector("form").addEventListener("submit", event => {
+    event.preventDefault()
     
-    const inputValue = document.querySelector(".get-pokemon-input");
+    const inputValue = document.querySelector(".get-pokemon-input")
     
     if (!inputValue.value == "") {
-        pokeId = inputValue.value.toLowerCase();
-       
-        console.log(pokeId);
-        getUrl1(pokeId);
+        pokeId = inputValue.value.toLowerCase().replaceAll(" ", "")
+
+        getUrl1(pokeId)
     }
-}
+})
 
-function searchPokemonPrev() {
-    pokeId2 -= 1;
+//render previous pokemon
+document.querySelector(".poke-prev").addEventListener("click", () => {
+    pokeId2 -= 1
+    getUrl1(pokeId2)
+})
 
-    getUrl1(pokeId2);
-}
+//render next pokemon
+document.querySelector(".poke-next").addEventListener("click", () => {
+    pokeId2 += 1
+    getUrl1(pokeId2)
+})
 
-function searchPokemonNext() {
-    pokeId2 += 1;
-    getUrl1(pokeId2);
-}
-
-function checkArrows() {
+//removing previous pokemon button when pokemon id is 1 and removing next pokemon button when pokemon id is 898
+const checkArrows = () => {
     if (pokeId2 == 1) {
-        pokePrev.style.opacity = "0";
-        pokePrev.style.visibility = "hidden";
-        pokeNext.style.opacity = "1";
-        pokeNext.style.visibility = "visible";
+        pokePrev.style.opacity = "0"
+        pokePrev.style.visibility = "hidden"
+        pokeNext.style.opacity = "1"
+        pokeNext.style.visibility = "visible"
     }
     if (pokeId2 > 1 && pokeId2 < 898) {
-        pokePrev.style.opacity = "1";
-        pokePrev.style.visibility = "visible";
-        pokeNext.style.opacity = "1";
-        pokeNext.style.visibility = "visible";
+        pokePrev.style.opacity = "1"
+        pokePrev.style.visibility = "visible"
+        pokeNext.style.opacity = "1"
+        pokeNext.style.visibility = "visible"
     } else
     if (pokeId2 == 898) {
-        pokeNext.style.opacity = "0";
-        pokeNext.style.visibility = "hidden";
-        pokePrev.style.opacity = "1";
-        pokePrev.style.visibility = "visible";
+        pokeNext.style.opacity = "0"
+        pokeNext.style.visibility = "hidden"
+        pokePrev.style.opacity = "1"
+        pokePrev.style.visibility = "visible"
     }
 }
 
-function renderPokemon(pokemon, damage) {
-    const sprite = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${pokemon.id.toString().padStart(3, "0")}.png`;
+//render all pokemon information on container
+const renderPokemon = (pokemon, damage) => {
+    const sprite = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${pokemon.id.toString().padStart(3, "0")}.png`
 
-    pokeName.textContent = pokemon.name;
-    pokeImg.setAttribute('src', sprite);
-    pokeIdNumb.textContent = `#${pokemon.id.toString().padStart(3, "0")}`;
-    setCardColor(pokemon);
-    renderPokemonTypes(pokemon);
-    renderPokemonStats(pokemon);
-    renderPokemonAbilities(pokemon);
-    renderPokemonStrong(pokemon, damage);
-    renderPokemonWeak(pokemon, damage);
-    renderPokemonInfo(pokemon);
+    pokeName.textContent = pokemon.name
+    pokeImg.setAttribute('src', sprite)
+    pokeIdNumb.textContent = `#${pokemon.id.toString().padStart(3, "0")}`
+    setCardColor(pokemon)
+    renderPokemonTypes(pokemon)
+    renderPokemonStats(pokemon)
+    renderPokemonAbilities(pokemon)
+    renderPokemonStrong(pokemon, damage)
+    renderPokemonWeak(pokemon, damage)
+    renderPokemonInfo(pokemon)
 }
 
-function setCardColor(pokemon) {
-    const color = colors[pokemon.type[0]];
-    const typeColor = typeColors[pokemon.type[0]];
-    document.documentElement.style.setProperty('--background', typeColor);
-    pokeCard.style.background = color;
-    pokeButton.style.background = color;
-    pokeIcon.style.color = typeColor;
+//set the container background and types cards background according to main pokemon type
+const setCardColor = (pokemon) => {
+    const color = colors[pokemon.type[0]]
+    const typeColor = typeColors[pokemon.type[0]]
+    document.documentElement.style.setProperty('--background', typeColor)
+    pokeCard.style.background = color
+    pokeButton.style.background = color
+    pokeIcon.style.color = typeColor
 }
 
-function renderPokemonTypes(pokemon) {
-    pokeTypes.innerHTML = "";
+//render all pokemon types information on container
+const renderPokemonTypes = (pokemon) => {
+    pokeTypes.innerHTML = ""
 
     for (let i = 0; i <= (pokemon.type.length - 1); i++) {
-        const typeTextElement = document.createElement("label");
-        typeTextElement.style.background = typeColors[pokemon.type[i]];
-        typeTextElement.textContent = pokemon.type[i].charAt(0).toUpperCase() + pokemon.type[i].slice(1);
-        pokeTypes.appendChild(typeTextElement);
+        const typeTextElement = document.createElement("label")
+        typeTextElement.style.background = typeColors[pokemon.type[i]]
+        typeTextElement.textContent = pokemon.type[i].charAt(0).toUpperCase() + pokemon.type[i].slice(1)
+        pokeTypes.appendChild(typeTextElement)
     }
 }
 
-function renderPokemonStats(pokemon) {
-    pokeStats.innerHTML = "";
+//render all pokemon stats information on container
+const renderPokemonStats = (pokemon) => {
+    pokeStats.innerHTML = ""
 
     for (let i = 0; i <= (pokemon.stats.length - 1); i++) {
-        var width = screen.width;
-        const statElement = document.createElement("div");
-        const statElementName = document.createElement("label");
-        const statElementAmount = document.createElement("label");
-        const upperCase = pokemon.stats_name[i].charAt(0).toUpperCase() + pokemon.stats_name[i].slice(1);
-        statElementName.textContent = upperCase.replace('.a', '.A').replace('.d', '.D');
-        statElementAmount.textContent = pokemon.stats[i];
-        statElement.appendChild(statElementName);
-        statElement.appendChild(statElementAmount);
-        pokeStats.appendChild(statElement);
+        var width = screen.width
+        const statElement = document.createElement("div")
+        const statElementName = document.createElement("label")
+        const statElementAmount = document.createElement("label")
+        const upperCase = pokemon.stats_name[i].charAt(0).toUpperCase() + pokemon.stats_name[i].slice(1)
+        statElementName.textContent = upperCase.replace('.a', '.A').replace('.d', '.D')
+        statElementAmount.textContent = pokemon.stats[i]
+        statElement.appendChild(statElementName)
+        statElement.appendChild(statElementAmount)
+        pokeStats.appendChild(statElement)
 
-        if(width >= 465) {
-            document.querySelector(`.bar${i}`).style.width = `${pokemon.stats[i]}px`;
+        //this will set the pokemon stats bar width according to pokemon stats amount
+        if (width >= 1280) {
+            document.querySelector(`.bar${i}`).style.width = `${pokemon.stats[i] * 2}`
+        } else
+        if (width >= 768) {
+            document.querySelector(`.bar${i}`).style.width = `${pokemon.stats[i] + pokemon.stats[i] / 2}px`
+        } else
+        if (width >= 465) {
+            document.querySelector(`.bar${i}`).style.width = `${pokemon.stats[i]}px`
         } else 
         if (width < 465) {
-            document.querySelector(`.bar${i}`).style.width = `${pokemon.stats[i] - pokemon.stats[i] / 1.5}px`;
+            document.querySelector(`.bar${i}`).style.width = `${pokemon.stats[i] - pokemon.stats[i] / 1.5}px`
         }
     }
 }
 
-function renderPokemonAbilities(pokemon) {
-    pokeAbilities.innerHTML = "";
+//render all pokemon abilities information on container
+const renderPokemonAbilities = (pokemon) => {
+    pokeAbilities.innerHTML = ""
 
     for (let i = 0; i <= (pokemon.abilities.length - 1); i++) {
-        const abilitiesElement = document.createElement("label");
-        abilitiesElement.textContent = pokemon.abilities[i].charAt(0).toUpperCase() + pokemon.abilities[i].slice(1);
-        pokeAbilities.appendChild(abilitiesElement);
+        const abilitiesElement = document.createElement("label")
+        abilitiesElement.textContent = pokemon.abilities[i].charAt(0).toUpperCase() + pokemon.abilities[i].slice(1)
+        pokeAbilities.appendChild(abilitiesElement)
     }
 }
 
-function renderPokemonStrong(pokemon, damage) {
-    pokeStrong.innerHTML = "";
+//render all pokemon strong agains information on container
+const renderPokemonStrong = (pokemon, damage) => {
+    pokeStrong.innerHTML = ""
 
     for (let i = 0; i <= (damage.strong.length - 1); i++) {
-        const strongTextElement = document.createElement("label");
-        strongTextElement.style.background = typeColors[damage.strong[i]];
-        strongTextElement.textContent = damage.strong[i].charAt(0).toUpperCase() + damage.strong[i].slice(1);
-        pokeStrong.appendChild(strongTextElement);
+        const strongTextElement = document.createElement("label")
+        strongTextElement.style.background = typeColors[damage.strong[i]]
+        strongTextElement.textContent = damage.strong[i].charAt(0).toUpperCase() + damage.strong[i].slice(1)
+        pokeStrong.appendChild(strongTextElement)
     }
 }
 
-function renderPokemonWeak(pokemon, damage) {
-    pokeWeak.innerHTML = "";
+//render all pokemon weak against information on container
+const renderPokemonWeak = (pokemon, damage) => {
+    pokeWeak.innerHTML = ""
 
     for (let i = 0; i <= (damage.weakness.length - 1); i++) {
-        const weakTextElement = document.createElement("label");
-        weakTextElement.style.background = typeColors[damage.weakness[i]];
-        weakTextElement.textContent = damage.weakness[i].charAt(0).toUpperCase() + damage.weakness[i].slice(1);
-        pokeWeak.appendChild(weakTextElement);
+        const weakTextElement = document.createElement("label")
+        weakTextElement.style.background = typeColors[damage.weakness[i]]
+        weakTextElement.textContent = damage.weakness[i].charAt(0).toUpperCase() + damage.weakness[i].slice(1)
+        pokeWeak.appendChild(weakTextElement)
     }
 }
 
-function renderPokemonInfo(pokemon) {
+//render all pokemon extra information on container
+const renderPokemonInfo = (pokemon) => {
     pokeExtra.innerHTML = `<label>Weight: ${pokemon.weight} kg</label>
-                            <label>Height: ${pokemon.height} m</label>`;
+    <label>Height: ${pokemon.height} m</label>`
 }

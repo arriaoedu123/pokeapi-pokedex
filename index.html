@@ -1,3 +1,11 @@
+<!--
+# Creator: Arreaum
+# GitHub: https://github.com/arriaoedu123/
+# Creation date: 21/08/2021
+# Update date: 27/08/2021
+# Version: 1.6
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,67 +17,69 @@
 	<title>Pokédex</title>
 </head>
 <body>
-	<form action="" class="get-pokemon" onsubmit="searchPokemon(event)">
+	<form action="" class="get-pokemon">
 		<input type="text" class="get-pokemon-input" placeholder="Search for ID or Name">
-		<button type="button" onclick="searchPokemon(event)" id="get-pokemon-button"><i id="get-pokemon-icon" class="fas fa-search"></i></button>
+		<button type="submit" class="get-pokemon-button"><i id="get-pokemon-icon" class="fas fa-search"></i></button>
 	</form>
-	<div class="container">
-		<!-- -->
-		<div class="title-container">
-  			<div class="data-poke-name"></div>
-  			<div class="data-poke-id"></div>
-  			<div class="data-poke-types"></div>
+	<div class="container"> <!-- main div-->
+		
+		<div class="title-container"> <!-- pokemon id, name and types div -->
+			<div class="data-poke-name"></div> <!-- pokemon name -->
+			<div class="data-poke-id"></div> <!-- pokemon id -->
+			<div class="data-poke-types"></div> <!-- pokemon types -->
 		</div>
-		<!-- -->
-  		<div class="img-container">
-  			<img class="poke-image" src=""/>
-  			<span class="poke-prev" onclick="searchPokemonPrev()"><i class="fas fa-chevron-left"></i></span>
-  			<span class="poke-next" onclick="searchPokemonNext()"><i class="fas fa-chevron-right"></i></span>
-  		</div>
-  		<!-- -->
-  		<div class="stats-container">
-  			<label class="stats-title">
-  				<div class="separator">
-  					<span>Stats</span>
-  				</div>
-  			</label>
-  			<div class="data-poke-stats"></div>
-  			<div class="data-poke-bar">
-  				<span class="bar0"></span>
-  				<span class="bar1"></span>
-  				<span class="bar2"></span>
-  				<span class="bar3"></span>
-  				<span class="bar4"></span>
-  				<span class="bar5"></span>
-  			</div>
-  			<label class="abilities-title">
-  				<div class="separator">
-  					<span>Abilities</span>
-  				</div>
-  			</label>
-  			<div class="data-poke-abilities"></div>
-  			<label class="strong-title">
-  				<div class="separator">
-  					<span>Strong against</span>
-  				</div>
-  			</label>
-  			<div class="data-poke-strong"></div>
-  			<label class="weak-title">
-  				<div class="separator">
-  					<span>Weak against</span>
-  				</div>
-  			</label>
-  			<div class="data-poke-weak"></div>
-  			<label class="info-title">
-  				<div class="separator">
-  					<span>Extra info</span>
-  				</div>
-  			</label>
-  			<div class="data-poke-extra">
+		
+		<div class="img-container"> <!-- pokemon image, prev button and next button div -->
+			<img class="poke-image" src=""/> <!-- pokemon image -->
+			<span class="poke-prev" onclick="searchPokemonPrev()"><i class="fas fa-chevron-left"></i></span> <!-- prev button -->
+			<span class="poke-next" onclick="searchPokemonNext()"><i class="fas fa-chevron-right"></i></span> <!-- next button -->
+		</div>
+		
+		<div class="stats-container"> <!-- pokemon stats div -->
+			<label class="stats-title"> <!-- stats title -->
+				<div class="separator"> 
+					<span>Stats</span>
+				</div>
+			</label>
+			<div class="data-poke-stats"></div> <!-- all pokemon stats div -->
+			<div class="data-poke-bar"> <!-- pokemon stats bar -->
+				<span class="bar0"></span> <!-- hp bar -->
+				<span class="bar1"></span> <!-- attack bar -->
+				<span class="bar2"></span> <!-- defense bar -->
+				<span class="bar3"></span> <!-- special attack bar -->
+				<span class="bar4"></span> <!-- special defense bar -->
+				<span class="bar5"></span> <!-- speed bar -->
+			</div>
 
-  			</div>
+			<label class="abilities-title"> <!-- pokemon abilities title -->
+				<div class="separator">
+					<span>Abilities</span>
+				</div>
+			</label>
+			<div class="data-poke-abilities"></div> <!-- all pokemon abilities div -->
+
+			<label class="strong-title"> <!-- pokemon strong against title -->
+				<div class="separator">
+					<span>Strong against</span>
+				</div>
+			</label>
+			<div class="data-poke-strong"></div> <!-- all pokemon strong against div -->
+
+			<label class="weak-title"> <!-- pokemon weak against title -->
+				<div class="separator">
+					<span>Weak against</span>
+				</div>
+			</label>
+			<div class="data-poke-weak"></div> <!-- all pokemon weak against div -->
+			
+			<label class="info-title"> <!-- pokemon extra info title -->
+				<div class="separator">
+					<span>Extra info</span>
+				</div>
+			</label>
+			<div class="data-poke-extra"></div> <!-- all pokemon extra info div -->
 		</div>
-		<!-- -->
+		
 	</div>
 
 

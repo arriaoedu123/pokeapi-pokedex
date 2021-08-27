@@ -1,3 +1,11 @@
+/*
+# Creator: Arreaum
+# GitHub: https://github.com/arriaoedu123/
+# Creation date: 21/08/2021
+# Update date: 27/08/2021
+# Version: 1.6
+*/
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 :root {
@@ -22,7 +30,7 @@ body { /* giving body a background */
   background: #d1dae3;
 }
 
-.title-container {
+.title-container { /* container title div */
   display: grid; 
   grid-auto-columns: 1fr; 
   grid-template-columns: 2fr 1fr; 
@@ -31,19 +39,19 @@ body { /* giving body a background */
   padding: 20px;
 }
 
-.img-container {
+.img-container { /* pokemon image container */
   width: 100%;
   display: flex;
   position: relative;
 }
 
-.stats-container {
+.stats-container { /* pokemon stats container */
   display: grid; 
   grid-template-columns: 0.5fr 1fr; 
   grid-template-rows: auto 1fr;
 }
 
-.get-pokemon {
+.get-pokemon { /* search pokemon form */
   width: 60%;
   margin-top: 10px;
   position: relative;
@@ -63,7 +71,7 @@ body { /* giving body a background */
   border-radius: 5px;
 }
 
-.get-pokemon button {
+.get-pokemon button { /* search pokemon button */
   position: absolute;
   top: 0;
   bottom: 0;
@@ -73,15 +81,13 @@ body { /* giving body a background */
   width: 50px;
   height: 100%;
   z-index: 1;
-  background: #e50914;
-  color: #fff;
   text-transform: uppercase;
   cursor: pointer;
   overflow: hidden;
   border-radius: 0 5px 5px 0;
 }
 
-.get-pokemon button i {
+.get-pokemon button i { /* search pokemon button icon */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -96,56 +102,56 @@ body { /* giving body a background */
   transition: transform 0.1s linear;
 }
 
-.get-pokemon button i:active {
+.get-pokemon button i:active { /* decreasing icon size when button click */
   transform: scale(0.6);
 }
 
-.container {
+.container { /* container div */
   width: 60%;
   margin-top: 35px;
   margin-bottom: 10px;
   border-radius: 25px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  transition: background 0.5s linear;
+  transition: background 0.5s ease-in-out;
 }
 
-.data-poke-name {
+.data-poke-name { /* pokemon name */
   grid-column: 1/3;
   text-transform: capitalize;
 }
 
-.data-poke-id {
+.data-poke-id { /* pokemon id */
   grid-column: 3/4;
   text-align: right;
 }
 
-.data-poke-types {
+.data-poke-types { /* pokemon types */
   grid-column: 1/4;
 }
 
-.data-poke-types label {
+.data-poke-types label { /* pokemon types cards */
   margin-right: 10px;
   padding: 10px 15px;
   border-radius: 5px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
-.img-container {
+.img-container { /* pokemon image container */
   width: 100%;
   display: flex;
   justify-content: center;
   margin-top: 30px;
 }
 
-.img-container img {
+.img-container img { /* pokemon image */
   width: 50%;
 }
 
-.img-container span i {
+.img-container span i { /* pokemon prev and next button */
   font-size: 28px;
 }
 
-.poke-prev {
+.poke-prev { /* pokemon prev button */
   position: absolute;
   left: 0;
   top: 25%;
@@ -156,7 +162,7 @@ body { /* giving body a background */
   cursor: pointer;
 }
 
-.poke-next {
+.poke-next { /* pokemon next button */
   position: absolute;
   right: 0;
   top: 25%;
@@ -166,18 +172,18 @@ body { /* giving body a background */
 }
 
 .poke-prev:active,
-.poke-next:active {
+.poke-next:active { /* decreasing pokemon prev and next button when click */
   transform: scale(0.8);
 }
 
-.stats-container {
+.stats-container { /* all pokemon stats container */
   background: #fff;
   margin-top: -85px;
   border-radius: 25px;
   padding: 100px 20px 0 20px;
 }
 
-.stats-container label {
+.stats-container label { /* all pokemon stats cards */
   padding: 10px 15px;
   border-radius: 5px;
 }
@@ -186,32 +192,32 @@ body { /* giving body a background */
 .abilities-title,
 .strong-title,
 .weak-title,
-.info-title {
+.info-title { /* all pokemon stats title */
   grid-column: 1/3;
   margin-top: 5px;
 }
 
-.data-poke-stats div {
+.data-poke-stats div { /* pokemon stats divs */
   display: flex;
   justify-content: space-between;
   align-content: space-between;
 }
 
-.abilities-title {
+.abilities-title { /* pokemon abilities title */
   margin-top: 10px;
 }
 
-.data-poke-abilities label {
+.data-poke-abilities label { /* all pokemon abilities cards */
   background: #ccc;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
-.data-poke-stats {
+.data-poke-stats { /* pokemon stats */
   grid-column: 1/2;
   border-right: 2px solid #000;
 }
 
-.data-poke-bar {
+.data-poke-bar { /* pokemon stats bar */
   grid-column: 2/3;
   display: grid;
   align-items: center;
@@ -223,17 +229,17 @@ body { /* giving body a background */
 .bar2,
 .bar3,
 .bar4,
-.bar5 {
+.bar5 { /* all pokemon stats bar */
   width: 0px;
   height: 6px;
   background: var(--background);
   grid-column: 1/4;
-  transition: width 1s ease-in-out;
+  transition: width 0.5s ease-in-out;
 }
 
 .data-poke-abilities,
 .data-poke-strong,
-.data-poke-weak {
+.data-poke-weak { /* pokemon abilities, strong agains and weak against container */
   grid-column: 1/3;
   margin: 15px 0;
   display: flex;
@@ -243,7 +249,7 @@ body { /* giving body a background */
 
 .data-poke-abilities label,
 .data-poke-strong label,
-.data-poke-weak label {
+.data-poke-weak label { /* pokemon abilities, strong agains and weak against cards */
   width: 200px;
   text-align: center;
   margin-top: 5px;
@@ -268,7 +274,7 @@ body { /* giving body a background */
   padding: 0 10px;
 }
 
-.data-poke-extra {
+.data-poke-extra { /* pokemon extra info */
   grid-column: 1/3;
   margin: 30px 0;
   display: flex;
@@ -276,7 +282,7 @@ body { /* giving body a background */
   justify-content: center;
 }
 
-.data-poke-extra label {
+.data-poke-extra label { /* all pokemon extra info cards */
   background: #d1dae3;
   width: 200px;
   margin: 5px 5px 0 0;
@@ -284,6 +290,7 @@ body { /* giving body a background */
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
+/* responsive css */
 @media only screen and (max-width: 800px) {
   .get-pokemon,
   .container {
