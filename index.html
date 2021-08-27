@@ -9,9 +9,9 @@
 	<title>Pokédex</title>
 </head>
 <body>
-	<form class="get-pokemon">
+	<form action="" class="get-pokemon" onsubmit="searchPokemon(event)">
 		<input type="text" class="get-pokemon-input" placeholder="Search for ID or Name">
-		<button type="button" onclick="searchPokemon()" id="get-pokemon-button"><i id="get-pokemon-icon" class="fas fa-search"></i></button>
+		<button type="button" onclick="searchPokemon(event)" id="get-pokemon-button"><i id="get-pokemon-icon" class="fas fa-search"></i></button>
 	</form>
 	<div class="container">
 		<!-- -->
@@ -23,6 +23,8 @@
 		<!-- -->
   		<div class="img-container">
   			<img class="poke-image" src=""/>
+  			<span class="poke-prev" onclick="searchPokemonPrev()"><i class="fas fa-chevron-left"></i></span>
+  			<span class="poke-next" onclick="searchPokemonNext()"><i class="fas fa-chevron-right"></i></span>
   		</div>
   		<!-- -->
   		<div class="stats-container">

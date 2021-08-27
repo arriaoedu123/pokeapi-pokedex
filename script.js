@@ -1,6 +1,6 @@
 const pokeCard = document.querySelector(".container");
 const pokeName = document.querySelector(".data-poke-name");
-const pokeId = document.querySelector(".data-poke-id");
+const pokeIdNumb = document.querySelector(".data-poke-id");
 const pokeTypes = document.querySelector(".data-poke-types");
 const imgContainer = document.querySelector(".img-container");
 const pokeImg = document.querySelector(".poke-image");
@@ -12,6 +12,11 @@ const pokeInfo = document.querySelector(".data-poke-info");
 const pokeButton = document.querySelector("#get-pokemon-button");
 const pokeIcon = document.querySelector("#get-pokemon-button i");
 const pokeExtra = document.querySelector(".data-poke-extra");
+const pokePrev = document.querySelector(".poke-prev");
+const pokeNext = document.querySelector(".poke-next");
+
+var pokeId = 1;
+var pokeId2 = 1;
 
 const colors = {
     fire: "#fddfdf",
@@ -42,6 +47,7 @@ const typeColors = {
     flying: "linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%)",
     ice: "#51c4e7",
     steel: "#9eb7b8",
+
     fighting: "#d56723",
     rock: "#a38c21",
     ground: "linear-gradient(180deg, #f7de3f 50%, #ab9842 50%)",
@@ -55,9 +61,9 @@ const typeColors = {
     electric: "#eed535"
 };
 
-fetchPokemon(1);
+getUrl1(pokeId);
 
-function fetchPokemon(pokeId) {
+function getUrl1(pokeId) {
     const url = `https://pokeapi.co/api/v2/pokemon/${pokeId}`;
     fetch(url).then((res) => {
         return res.json();
@@ -66,61 +72,92 @@ function fetchPokemon(pokeId) {
             id: data1.id,
             type: data1.types.map(el => el.type.name)
         };
-        getAllUrls(idType.id, idType.type[0]);
+        const pokemon = {
+            name: data1.name,
+            id: data1.id,
+            height: parseFloat(data1.height / 10).toFixed(1),
+            weight: parseFloat(data1.weight / 10).toFixed(1),
+            abilities: data1.abilities.map(abilities => abilities.ability.name),
+            type: data1.types.map(typeInfo => typeInfo.type.name),
+            stats_name: data1.stats.map(statsName => statsName.stat.name.replace("ecial-", ".")),
+            stats: data1.stats.map(stats => stats.base_stat),
+        };
+        pokeId2 = pokemon.id;
+        checkArrows();
+        getUrl2(pokemon.type[0], pokemon);
     });
 };
 
-async function getAllUrls(pokeId, typeName) {
-    const urls = [`https://pokeapi.co/api/v2/pokemon/${pokeId}`, `https://pokeapi.co/api/v2/type/${typeName}`];
-    try {
-        var data2 = await Promise.all(
-            urls.map(
-                url =>
-                    fetch(url).then(
-                        (response) => response.json()
-                    )));
-        const pokemon = {
-            name: data2[0].name,
-            id: data2[0].id,
-            height: parseFloat(data2[0].height / 10).toFixed(1),
-            weight: parseFloat(data2[0].weight / 10).toFixed(1),
-            abilities: data2[0].abilities.map(abilities => abilities.ability.name),
-            type: data2[0].types.map(typeInfo => typeInfo.type.name),
-            stats_name: data2[0].stats.map(statsName => statsName.stat.name.replace("ecial-", ".")),
-            stats: data2[0].stats.map(stats => stats.base_stat),
-            weakness: data2[1].damage_relations.double_damage_from.map(el => el.name),
-            strong: data2[1].damage_relations.double_damage_to.map(el => el.name),
-        };
-        renderPokemon(pokemon);
-    } catch (error) {
-        console.log(error)
+function getUrl2(typeName, pokemon) {
+    const url = `https://pokeapi.co/api/v2/type/${typeName}`;
+    fetch(url).then((res) => {
+        return res.json();
+    }).then((data2) => {
+        const damage = {
+            weakness: data2.damage_relations.double_damage_from.map(el => el.name),
+            strong: data2.damage_relations.double_damage_to.map(el => el.name),
+        }
+        renderPokemon(pokemon, damage);
+    });
+};
 
-        throw (error)
-    }
-}
-
-function searchPokemon() {
+function searchPokemon(event) {
+    event.preventDefault();
+    
     const inputValue = document.querySelector(".get-pokemon-input");
     
     if (!inputValue.value == "") {
-    const getId = inputValue.value.toLowerCase();
+        pokeId = inputValue.value.toLowerCase();
        
-        fetchPokemon(getId);
+        console.log(pokeId);
+        getUrl1(pokeId);
     }
 }
 
-function renderPokemon(pokemon) {
+function searchPokemonPrev() {
+    pokeId2 -= 1;
+
+    getUrl1(pokeId2);
+}
+
+function searchPokemonNext() {
+    pokeId2 += 1;
+    getUrl1(pokeId2);
+}
+
+function checkArrows() {
+    if (pokeId2 == 1) {
+        pokePrev.style.opacity = "0";
+        pokePrev.style.visibility = "hidden";
+        pokeNext.style.opacity = "1";
+        pokeNext.style.visibility = "visible";
+    }
+    if (pokeId2 > 1 && pokeId2 < 898) {
+        pokePrev.style.opacity = "1";
+        pokePrev.style.visibility = "visible";
+        pokeNext.style.opacity = "1";
+        pokeNext.style.visibility = "visible";
+    } else
+    if (pokeId2 == 898) {
+        pokeNext.style.opacity = "0";
+        pokeNext.style.visibility = "hidden";
+        pokePrev.style.opacity = "1";
+        pokePrev.style.visibility = "visible";
+    }
+}
+
+function renderPokemon(pokemon, damage) {
     const sprite = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${pokemon.id.toString().padStart(3, "0")}.png`;
 
     pokeName.textContent = pokemon.name;
     pokeImg.setAttribute('src', sprite);
-    pokeId.textContent = `#${pokemon.id.toString().padStart(3, "0")}`;
+    pokeIdNumb.textContent = `#${pokemon.id.toString().padStart(3, "0")}`;
     setCardColor(pokemon);
     renderPokemonTypes(pokemon);
     renderPokemonStats(pokemon);
     renderPokemonAbilities(pokemon);
-    renderPokemonStrong(pokemon);
-    renderPokemonWeak(pokemon);
+    renderPokemonStrong(pokemon, damage);
+    renderPokemonWeak(pokemon, damage);
     renderPokemonInfo(pokemon);
 }
 
@@ -178,24 +215,24 @@ function renderPokemonAbilities(pokemon) {
     }
 }
 
-function renderPokemonStrong(pokemon) {
+function renderPokemonStrong(pokemon, damage) {
     pokeStrong.innerHTML = "";
 
-    for (let i = 0; i <= (pokemon.strong.length - 1); i++) {
+    for (let i = 0; i <= (damage.strong.length - 1); i++) {
         const strongTextElement = document.createElement("label");
-        strongTextElement.style.background = typeColors[pokemon.strong[i]];
-        strongTextElement.textContent = pokemon.strong[i].charAt(0).toUpperCase() + pokemon.strong[i].slice(1);
+        strongTextElement.style.background = typeColors[damage.strong[i]];
+        strongTextElement.textContent = damage.strong[i].charAt(0).toUpperCase() + damage.strong[i].slice(1);
         pokeStrong.appendChild(strongTextElement);
     }
 }
 
-function renderPokemonWeak(pokemon) {
+function renderPokemonWeak(pokemon, damage) {
     pokeWeak.innerHTML = "";
 
-    for (let i = 0; i <= (pokemon.weakness.length - 1); i++) {
+    for (let i = 0; i <= (damage.weakness.length - 1); i++) {
         const weakTextElement = document.createElement("label");
-        weakTextElement.style.background = typeColors[pokemon.weakness[i]];
-        weakTextElement.textContent = pokemon.weakness[i].charAt(0).toUpperCase() + pokemon.weakness[i].slice(1);
+        weakTextElement.style.background = typeColors[damage.weakness[i]];
+        weakTextElement.textContent = damage.weakness[i].charAt(0).toUpperCase() + damage.weakness[i].slice(1);
         pokeWeak.appendChild(weakTextElement);
     }
 }
