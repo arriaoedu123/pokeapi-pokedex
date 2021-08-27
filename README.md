@@ -24,12 +24,20 @@
 
 <br>
 
-# About
+## About
 
 This repository is a simple Pokédex made with <a href="https://pokeapi.co/"><i>Pokémon API</i></a>, 
 it contains every originals Pokémon. Fell free to download the code, 
 or try it <a href="https://arriaoedu123.github.io/pokeapi-pokedex/"><i>here</i></a>. 
 
 <br>
+
+***
+
+<h2 align="center">Preview</h2>
+
+<p align="center">
+  <img width="75%" src="https://user-images.githubusercontent.com/73148019/131173423-ca06d555-b060-4d1a-83f7-321c931ec958.png">
+</p>
 
 ***
