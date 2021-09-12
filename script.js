@@ -210,7 +210,7 @@ const renderPokemonStats = (pokemon) => {
 
         //this will set the pokemon stats bar width according to pokemon stats amount
         if (width >= 1280) {
-            document.querySelector(`.bar${i}`).style.width = `${pokemon.stats[i] * 2}`
+            document.querySelector(`.bar${i}`).style.width = `${pokemon.stats[i] * 2}px`
         } else
         if (width >= 768) {
             document.querySelector(`.bar${i}`).style.width = `${pokemon.stats[i] + pokemon.stats[i] / 2}px`
