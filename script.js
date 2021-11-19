@@ -34,7 +34,7 @@ const colors = { //all colors for pokemon container background
     ground: "#f4e7da",
     rock: "#d5d5d4",
     fairy: "#fceaff",
-    poison: "98d7a5",
+    poison: "#98d7a5",
     bug: "#f8d5a3",
     dragon: "#97b3e6",
     psychic: "#eaeda1",
@@ -55,7 +55,6 @@ const typeColors = { //all colors for pokemon types cards background
     flying: "linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%)",
     ice: "#51c4e7",
     steel: "#9eb7b8",
-
     fighting: "#d56723",
     rock: "#a38c21",
     ground: "linear-gradient(180deg, #f7de3f 50%, #ab9842 50%)",
@@ -264,3 +263,21 @@ const renderPokemonInfo = (pokemon) => {
     pokeExtra.innerHTML = `<label>Weight: ${pokemon.weight} kg</label>
     <label>Height: ${pokemon.height} m</label>`
 }
+
+//render next or prev pokemon by pressing arrow keys
+const checkKey = (e) => {
+    e = e || window.event;
+
+    if (e.keyCode == '37') {
+        // left arrow
+        pokeId2 -= 1
+        getUrl1(pokeId2)
+    }
+    else if (e.keyCode == '39') {
+        // right arrow
+        pokeId2 += 1
+        getUrl1(pokeId2)
+    }
+}
+
+document.onkeydown = checkKey;
